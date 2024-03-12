@@ -17,7 +17,7 @@ public class ReportController {
 
     private final BankStatementUseCase bankStatementUseCase;
 
-    @GetMapping("/clientes/{clientId}/reportes")
+    @GetMapping("/accounts/{clientId}/reports")
     public Mono<List<ReportDto>> findAccount(@RequestParam("initialDate") LocalDate initialDate,
                                              @RequestParam("finalDate") LocalDate finalDate,
                                              @PathVariable("clientId") String clientId) {
