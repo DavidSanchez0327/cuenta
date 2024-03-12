@@ -14,7 +14,7 @@ import java.util.UUID;
 import static co.com.sofka.api.dto.AccountDto.mapToAccount;
 
 @RestController
-@RequestMapping(value = "/v1/cuentas")
+@RequestMapping(value = "/v1/accounts")
 @RequiredArgsConstructor
 public class AccountController {
 
@@ -31,10 +31,11 @@ public class AccountController {
                 .map(AccountDto::mapToAccountDto);
     }
 
-    @PutMapping()
-    public Mono<AccountDto> updateAccount(@RequestBody AccountDto accountDto) {
+    @PutMapping("/{id}")
+    public Mono<AccountDto> updateAccount(@PathVariable("id") String id,
+                                              @RequestBody AccountDto accountDto) {
 
-        return updateAccountUseCase.updateAccount(mapToAccount(accountDto))
+        return updateAccountUseCase.updateAccount(mapToAccount(accountDto).toBuilder().id(id).build())
                 .map(AccountDto::mapToAccountDto);
     }
 

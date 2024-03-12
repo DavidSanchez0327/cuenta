@@ -25,8 +25,7 @@ public class TransactionController {
 
     @PostMapping()
     public Mono<TransactionDto> saveTransaction(@RequestBody TransactionDto transactionDto) {
-        return createTransactionUseCase.createTransaction(mapToTransaction(transactionDto).toBuilder()
-                        .build())
+        return createTransactionUseCase.createTransaction(mapToTransaction(transactionDto))
                 .map(TransactionDto::mapToTransactionDto);
     }
 
