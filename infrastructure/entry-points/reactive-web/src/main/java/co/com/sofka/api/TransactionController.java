@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 import static co.com.sofka.api.dto.TransactionDto.mapToTransaction;
 
 @RestController
-@RequestMapping(value = "/v1/movimientos")
+@RequestMapping(value = "/v1/transactions")
 @RequiredArgsConstructor
 @ControllerAdvice
 public class TransactionController {
@@ -29,10 +29,11 @@ public class TransactionController {
                 .map(TransactionDto::mapToTransactionDto);
     }
 
-    @PutMapping()
-    public Mono<TransactionDto> updateTransaction(@RequestBody TransactionDto transactionDto) {
+    @PutMapping("{id}")
+    public Mono<TransactionDto> updateTransaction(@PathVariable("id") String id,
+                                                  @RequestBody TransactionDto transactionDto) {
 
-        return updateTransactionUseCase.updateTransaction(mapToTransaction(transactionDto))
+        return updateTransactionUseCase.updateTransaction(mapToTransaction(transactionDto).toBuilder().id(id).build())
                 .map(TransactionDto::mapToTransactionDto);
 
     }
